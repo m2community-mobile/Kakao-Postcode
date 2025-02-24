@@ -41,17 +41,28 @@
       function execDaumPostcode() {
         new daum.Postcode({
           oncomplete: function (data) {
+             var fullRoadAddr = "";
             var jibunAddress = "";
-
+            var extraRoadAddr = '';
             if (data.jibunAddress == "") {
               jibunAddress = data.autoJibunAddress;
             } else if (data.autoJibunAddress == "") {
               jibunAddress = data.jibunAddress;
             }
 
+            if(data.buildingName !== '' && data.apartment === 'Y'){
+                 extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+              }
+
+            if(extraRoadAddr !== ''){
+                  fullRoadAddr += jibunAddress + ' (' + extraRoadAddr + ')';
+               }
+
             var postData = {
+              fullRoadAddr: fullRoadAddr,
               roadAddress: data.roadAddress,
               jibunAddress: jibunAddress,
+              extraRoadAddr : extraRoadAddr,
               zonecode: data.zonecode,
             };
             window.postMessageToiOS(postData);
