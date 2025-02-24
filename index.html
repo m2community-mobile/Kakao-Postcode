@@ -44,10 +44,18 @@
              var fullRoadAddr = "";
             var jibunAddress = "";
             var extraRoadAddr = '';
+            var roadAddress = "";
+            
             if (data.jibunAddress == "") {
               jibunAddress = data.autoJibunAddress;
             } else if (data.autoJibunAddress == "") {
               jibunAddress = data.jibunAddress;
+            }
+
+            if (data.roadAddress == "") {
+              roadAddress = data.autoRoadAddress;
+            } else if (data.autoRoadAddress == "") {
+              roadAddress = data.roadAddress;
             }
 
             if(data.buildingName !== '' && data.apartment === 'Y'){
@@ -55,12 +63,12 @@
               }
 
             if(extraRoadAddr !== ''){
-                  fullRoadAddr += jibunAddress + ' (' + extraRoadAddr + ')';
+                  fullRoadAddr += roadAddress + ' (' + extraRoadAddr + ')';
                }
 
             var postData = {
               fullRoadAddr: fullRoadAddr,
-              roadAddress: data.roadAddress,
+              roadAddress: roadAddress,
               jibunAddress: jibunAddress,
               extraRoadAddr : extraRoadAddr,
               zonecode: data.zonecode,
